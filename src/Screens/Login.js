@@ -56,6 +56,13 @@ function Login() {
           }}
         />
         <Button type="submit">Нэвтрэх</Button>
+        <Button
+          onClick={() => {
+            window.location.href = "/sign-up";
+          }}
+        >
+          Бүртгүүлэх
+        </Button>
       </Form>
     </div>
   );

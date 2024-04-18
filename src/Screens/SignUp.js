@@ -68,6 +68,13 @@ function SignUp() {
           }}
         />
         <Button type="submit">Үүсгэх</Button>
+        <Button
+          onClick={() => {
+            window.location.href = "/login";
+          }}
+        >
+          Нэвтрэх
+        </Button>
       </Form>
     </div>
   );
