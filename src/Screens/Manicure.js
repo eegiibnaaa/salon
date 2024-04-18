@@ -1,35 +1,27 @@
-import { Input } from "reactstrap";
-import kk from "./../images/sormuus.png";
-import Photo from "./../Components/photo";
+import ManicurePhoto from "./../images/manicure.png";
+import Photo from "../Components/photo";
 import { useContext, useEffect, useState } from "react";
 import { ProviderContext } from "../provider";
 import { collection, getDocs } from "@firebase/firestore";
 import firestore from "../firebase";
 
-function Sormuus() {
+function Manicure() {
   const provider = useContext(ProviderContext);
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
     (async () => {
       const datas = [];
-      const querySnapshot = await getDocs(collection(firestore, "sormuus"));
+      const querySnapshot = await getDocs(collection(firestore, "manicure"));
       querySnapshot.forEach((doc) => {
         datas.push({ ...doc.data(), id: doc.id });
       });
       setProducts(datas);
     })();
   });
-
   return (
     <div>
-      <Photo image={kk} />
-      {/* <div className="w-64 ml-40">
-        <Input type="select">
-          <option>2D</option>
-          <option>3D</option>
-        </Input>
-      </div> */}
+      <Photo image={ManicurePhoto} />
       <div className="flex items-center justify-center">
         <div className="grid grid-cols-4 justify-center">
           {products.map((product) => {
@@ -64,4 +56,4 @@ function Sormuus() {
   );
 }
 
-export default Sormuus;
+export default Manicure;
