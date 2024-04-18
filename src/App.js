@@ -119,7 +119,7 @@ function App() {
   const submit = async () => {
     await addDoc(collection(firestore, "zahialga"), {
       name: provider.product.name,
-      desciption: provider.product.desciption,
+      desciption: provider.product.description,
       price: provider.product.price,
       image: provider.product.image,
       tsag: provider.tsag,
@@ -144,7 +144,6 @@ function App() {
         occupiedTimes.push(result.data().tsag);
       });
 
-      console.log(occupiedTimes);
       setAvailableTimes(times.filter((time) => !occupiedTimes.includes(time)));
     })();
   }, [provider.calval, setAvailableTimes]);
