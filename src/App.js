@@ -19,6 +19,7 @@ import firestore from "./firebase";
 import { addDoc, collection, getDocs, query, where } from "@firebase/firestore";
 import SalonHome from "./Screens/SalonHome";
 import moment from "moment";
+import toast from "react-hot-toast";
 
 const user = localStorage.getItem("currentUser");
 
@@ -126,11 +127,12 @@ function App() {
       udur: moment().format("YYYY-MM-DD"),
       user: user,
     });
-
+    toast("Та амжилттай Захиаллаа.");
     provider.clear();
   };
 
   useEffect(() => {
+    console.log(provider.product);
     (async () => {
       const sth = await getDocs(
         query(
@@ -144,9 +146,20 @@ function App() {
         occupiedTimes.push(result.data().tsag);
       });
 
-      setAvailableTimes(times.filter((time) => !occupiedTimes.includes(time)));
+      const time = times
+        .map((time) => {
+          return parseInt(provider.product.startTime) <=
+            parseInt(time.slice(0, 2)) &&
+            parseInt(time.slice(0, 2)) <= parseInt(provider.product.endTime)
+            ? time
+            : null;
+        })
+        .filter((time) => time !== null)
+        .filter((time) => !occupiedTimes.includes(time));
+
+      setAvailableTimes(time);
     })();
-  }, [provider.calval, setAvailableTimes]);
+  }, [provider.calval, setAvailableTimes, provider.product]);
 
   return (
     <div>
